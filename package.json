@@ -1,0 +1,12 @@
+{
+  "name": "Termello",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "electron": "^11.1.0",
+    "node": "^15.4.0"
+  }
+}
