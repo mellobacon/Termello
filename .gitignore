@@ -124,4 +124,7 @@ dist
 .history
 .ionide
 
+### Electron Forge ###
+out/
+
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,node
