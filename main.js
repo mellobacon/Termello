@@ -5,9 +5,10 @@ let mainWindow;
 
 function createWindow() {
     mainWindow = new BrowserWindow({
-        //autoHideMenuBar: true,
+        autoHideMenuBar: true,
         height: 450,
         width: 800,
+        icon: __dirname + '/Icons/Terminal.ico',
         webPreferences: {
             nodeIntegration: true
         }
