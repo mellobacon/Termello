@@ -8,4 +8,4 @@ A terminal emulator made in Electron
 
 
 # How to run
-I will make the terminal available for you to try soon. Have to fix a bug :) (See issue [#3](https://github.com/mellobacon/Termello/issues/3) for reference)
+Run the setup.exe to install. Currently you can only type commands.
