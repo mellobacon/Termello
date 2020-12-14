@@ -1,8 +1,5 @@
 "use strict";
 
-const p = document.createElement("p");
-const div = document.createElement("div");
-
 const termwindow = document.querySelector(".window");
 
 const prompt_ = "$";
@@ -18,7 +15,9 @@ function echo(args){
     termwindow.append(str + "\n");
 }
 function help(){
-    termwindow.append("There is no help. Yet. Suffer.\n");
+    commands.forEach(element => {
+        termwindow.append(element.name + " - " + element.description + "\n");
+    });;
 }
 function exit(){
     window.close();
@@ -35,22 +34,28 @@ function brackeys(){
 
 const commands = [{
     "name": "clear",
-    "function": clear
+    "function": clear,
+    "description": "Clears the terminal"
 }, {
     "name": "help",
-    "function": help
+    "function": help,
+    "description": "Displays commands"
 }, {
     "name": "echo",
-    "function": echo
+    "function": echo,
+    "description": "Returns string given"
 }, {
     "name": "exit",
-    "function": exit
+    "function": exit,
+    "description": "Exits the application"
 }, {
     "name": "whoami",
-    "function": whoami
+    "function": whoami,
+    "description": "Displays info about user (not yet implemented)"
 }, {
     "name": "kill",
-    "function" : kill
+    "function" : kill,
+    "description": "Kills running command (not yet implemented"
 }];
 
 let commandHistory = [];
@@ -89,10 +94,11 @@ let status = 'Emulator Status: ' + onlinestatus;
 function startterminal(){
     termwindow.append("Terminal Emulator - Electron " + process.versions.electron + "\n");
     termwindow.append(status + "\n");
+    termwindow.append("For commands type: help (note: not all commands will be functional) \n")
     displayprompt();
 }
 
-// Displays "$ ~ in the console (default)"
+// Displays "$ ~ in the console (default for now until file paths work)"
 function displayprompt(){
     termwindow.append(prompt_);
     termwindow.append(path);
@@ -118,7 +124,7 @@ document.addEventListener("keydown", function(e){
     }
 })
 
-// Allows typing to go brr (except erasing for no fucking reason)
+// Allows typing
 document.addEventListener("keypress", function(e){
     e = e || window.Event;
     let key = typeof e.which === "number" ? e.which : e.key;
