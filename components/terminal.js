@@ -71,6 +71,10 @@ function processcommand(){
     // Iterate through the available commands to find a match.
     // Then call that command and pass in any arguments.
     for (let i = 0; i < commands.length; i++) {
+        // Makes sure to ignore newlines in the command
+        if (command.match(commands[i].name)){
+            cmd = commands[i].name;
+        }
         if (cmd === commands[i].name) {
             commands[i].function(args);
             isValid = true;
@@ -111,7 +115,6 @@ function appendcommand(str){
 
 function erase(n){
     command = command.slice(0, -n);
-    termwindow.textContent.slice(0, -n);
 }
 
 document.addEventListener("keydown", function(e){
