@@ -10,6 +10,9 @@ A terminal emulator made in Electron
 
 
 # How to run 
+
+**This Terminal runs on Windows only**
+
 Run the setup.exe to install.
 Type 'help' for a list of commands.
 
