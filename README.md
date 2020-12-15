@@ -1,10 +1,15 @@
 # Termello
+
+<img src="" alt="Termello Icon" width="300px"/>
 A terminal emulator made in Electron
 
+<p align="center">
+  <a href="https://github.com/mellobacon/Termello/releases/tag/0.1.1a">Download</a> •
+  <a href="https://github.com/mellobacon/Termello/blob/master/CHANGELOG.md">Changelog</a>
+</p>
 
 
-
-# How to run
+# How to run 
 Run the setup.exe to install.
 Type 'help' for a list of commands.
 
