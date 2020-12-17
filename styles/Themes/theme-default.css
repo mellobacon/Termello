@@ -1,18 +1,18 @@
+.status-success {
+    color: #89CE94;
+}
+.status-fail {
+    color: #F25F5C;
+}
+.message {
+    color: gray;
+}
 .prompt {
-    color: rgb(255, 251, 0);
+    color: #0094C6;
 }
 .path {
-    color:rgb(255, 251, 0);
+    color: #247BA0;
 }
 .title {
-    color: orange;
-}
-.keyword {
-
-}
-.error {
-    
-}
-.success {
-
+    color: #EEB902;
 }
