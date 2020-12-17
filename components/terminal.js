@@ -1,14 +1,27 @@
 "use strict";
 
-const termwindow = document.querySelector(".window");
+
+const termwindow = $(".window");
+const termwindow_ = document.querySelector(".window"); // This is here to get the clear command working
 
 const prompt_ = "$";
 const path = "~ ";
 let command = "";
 
-// List of commands
+let onlinestatus = navigator.onLine ? 'Online\n' : 'Offline\n'; // gets whether app is online or not
+let status = 'Emulator Status: ' + onlinestatus;
+
+
+// UTILITY
+function span(classname, message_){
+    return "<span class=\"" + classname + "\">" + message_ + "</span"
+}
+// END UTILITY
+
+//TODO Move these to their own class
+// List of command functions
 function clear(){
-    termwindow.textContent = "";
+    termwindow_.textContent = "";
 }
 function echo(args){
     let str = args.join(" ");
@@ -17,7 +30,7 @@ function echo(args){
 function help(){
     commands.forEach(element => {
         termwindow.append(element.name + " - " + element.description + "\n");
-    });;
+    });
 }
 function exit(){
     window.close();
@@ -28,10 +41,12 @@ function whoami(){
 function kill(){
     termwindow.append("Command not available\n")
 }
-function brackeys(){
-    // make brackeys logo
-}
+// End command functions
 
+
+
+
+// List of commands
 const commands = [{
     "name": "clear",
     "function": clear,
@@ -57,10 +72,15 @@ const commands = [{
     "function" : kill,
     "description": "Kills running command (not yet implemented"
 }];
+// End commands
+
+
+
 
 let commandHistory = [];
 let historyIndex = 0;
 
+// Functions for making the terminal do its job
 function processcommand(){
     let isValid = false;
 
@@ -75,6 +95,7 @@ function processcommand(){
         if (command.match(commands[i].name)){
             cmd = commands[i].name;
         }
+        // Process the command
         if (cmd === commands[i].name) {
             commands[i].function(args);
             isValid = true;
@@ -83,7 +104,7 @@ function processcommand(){
     }
 
     if (!isValid){
-        termwindow.append("Command not found: " + command);
+        termwindow.append("Command not found: " + command + "\n");
     }
 
     // Add to command history and clean up.
@@ -92,38 +113,59 @@ function processcommand(){
 	command = "";
 }
 
-let onlinestatus = navigator.onLine ? 'Online\n' : 'Offline\n'; // gets whether app is online or not
-let status = 'Emulator Status: ' + onlinestatus;
-
-function startterminal(){
-    termwindow.append("Terminal Emulator - Electron " + process.versions.electron + "\n");
-    termwindow.append(status + "\n");
-    termwindow.append("For commands type: help (note: not all commands will be functional) \n")
-    displayprompt();
-}
-
-// Displays "$ ~ in the console (default for now until file paths work)"
-function displayprompt(){
-    termwindow.append(prompt_);
-    termwindow.append(path);
-}
-
 function appendcommand(str){
     termwindow.append(str);
     command += str;
 }
 
-function erase(n){
-    command = command.slice(0, -n);
+function clearcommand() {
+    if (command.length > 0) {
+        erase(command.length);
+    }
 }
 
+function erase(n){
+    command = command.slice(0, -n);
+    termwindow.html(termwindow.html().slice(0, -n));
+}
+// End console functionality
+
+
+// Allows backspacing
 document.addEventListener("keydown", function(e){
     e = e || window.Event;
     let key = typeof e.which === "number" ? e.which : e.key;
     if (key == 8){
         console.log(command)
         e.preventDefault();
-        erase(1);
+        if (command !== "" && command !== "\n"){
+            erase(1);
+        }
+    }
+    // UP or DOWN
+		if (key === 38 || key === 40) {
+        // Move up or down the history
+        if (key === 38) {
+            // UP
+            historyIndex--;
+            if (historyIndex < 0) {
+                historyIndex++;
+            }
+        } else if (key === 40) {
+            // DOWN
+            historyIndex++;
+            if (historyIndex > commandHistory.length - 1) {
+                historyIndex--;
+            }
+        }
+
+        // Get command
+        var cmd = commandHistory[historyIndex];
+        if (cmd !== undefined) {
+            console.log(cmd);
+            clearcommand();
+            appendcommand(cmd);
+        }
     }
 })
 
@@ -133,7 +175,7 @@ document.addEventListener("keypress", function(e){
     let key = typeof e.which === "number" ? e.which : e.key;
     switch (key){
         case 13:
-            appendcommand(" \n");
+            termwindow.append("\n");
             if (command.trim().length !== 0){
                 processcommand();
             }
@@ -144,6 +186,21 @@ document.addEventListener("keypress", function(e){
             appendcommand(String.fromCharCode(key));
     }
 })
+// End typing
+
+
+// Displays "$ ~ in the console (default for now until file paths work)"
+function displayprompt(){
+    termwindow.append(span("prompt", prompt_));
+    termwindow.append(span("path", path));
+}
 
 // Some startup stuffs
+function startterminal(){
+    termwindow.append(span("title", "Terminal Emulator - Electron " + process.versions.electron + "\n"));
+    termwindow.append(span("", status));
+    termwindow.append(span("", "For commands type: help (note: not all commands will be functional)\n"))
+    displayprompt();
+}
+
 startterminal();
