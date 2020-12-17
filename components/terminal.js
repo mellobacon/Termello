@@ -1,6 +1,5 @@
 "use strict";
 
-
 const termwindow = $(".window");
 const termwindow_ = document.querySelector(".window"); // This is here to get the clear command working
 
@@ -41,6 +40,13 @@ function whoami(){
 function kill(){
     termwindow.append("Command not available\n")
 }
+function whatis(args) {
+    commands.forEach(element => {
+        if (args == element.name){
+            termwindow.append(element.name + " - " + element.description + "\n");
+        }
+    })
+}
 // End command functions
 
 
@@ -69,8 +75,12 @@ const commands = [{
     "description": "Displays info about user (not yet implemented)"
 }, {
     "name": "kill",
-    "function" : kill,
+    "function": kill,
     "description": "Kills running command (not yet implemented"
+}, {
+    "name": "whatis",
+    "function": whatis,
+    "description": "Displays help about a single command"
 }];
 // End commands
 
@@ -91,10 +101,6 @@ function processcommand(){
     // Iterate through the available commands to find a match.
     // Then call that command and pass in any arguments.
     for (let i = 0; i < commands.length; i++) {
-        // Makes sure to ignore newlines in the command
-        if (command.match(commands[i].name)){
-            cmd = commands[i].name;
-        }
         // Process the command
         if (cmd === commands[i].name) {
             commands[i].function(args);
@@ -103,11 +109,11 @@ function processcommand(){
         }
     }
 
-    if (!isValid){
+    if (!isValid) {
         termwindow.append(span("status-fail", "Command not found: " + command + "\n"));
     }
 
-    // Add to command history and clean up.
+    // Add to command history and clean up
 	commandHistory.push(command);
 	historyIndex = commandHistory.length;
 	command = "";
@@ -118,8 +124,8 @@ function appendcommand(str){
     command += str;
 }
 
-function clearcommand() {
-    if (command.length > 0) {
+function clearcommand(){
+    if (command.length > 0){
         erase(command.length);
     }
 }
@@ -135,24 +141,25 @@ function erase(n){
 document.addEventListener("keydown", function(e){
     e = e || window.Event;
     let key = typeof e.which === "number" ? e.which : e.key;
-    if (key == 8){
+    if (key == 8) {
         console.log(command)
         e.preventDefault();
-        if (command !== "" && command !== "\n"){
+        if (command !== "" && command !== "\n") {
             erase(1);
         }
     }
-    // UP or DOWN
-		if (key === 38 || key === 40) {
+    // Allows moving through command history
+	if (key === 38 || key === 40) {
         // Move up or down the history
+        // Up key
         if (key === 38) {
-            // UP
             historyIndex--;
             if (historyIndex < 0) {
                 historyIndex++;
             }
-        } else if (key === 40) {
-            // DOWN
+        } 
+        // Down key
+        else if (key === 40) {
             historyIndex++;
             if (historyIndex > commandHistory.length - 1) {
                 historyIndex--;
@@ -197,7 +204,7 @@ function displayprompt(){
 
 // Some startup stuffs
 function startterminal(){
-    termwindow.append(span("title", "Terminal Emulator - Electron " + process.versions.electron + "\n"));
+    termwindow.append(span("title", "Terminal Emulator - Electron 11.1.0\n"));
     termwindow.append(status);
     termwindow.append(span("message", "For commands type: help (note: not all commands will be functional)\n"))
     displayprompt();
