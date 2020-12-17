@@ -76,7 +76,7 @@ const commands = [{
 }, {
     "name": "kill",
     "function": kill,
-    "description": "Kills running command (not yet implemented"
+    "description": "Kills running command (not yet implemented)"
 }, {
     "name": "whatis",
     "function": whatis,
@@ -147,6 +147,10 @@ document.addEventListener("keydown", function(e){
         if (command !== "" && command !== "\n") {
             erase(1);
         }
+        termwindow_.scrollBy({
+                top: termwindow_.scrollHeight,
+                behavior: "smooth"
+            })
     }
     // Allows moving through command history
 	if (key === 38 || key === 40) {
@@ -173,6 +177,10 @@ document.addEventListener("keydown", function(e){
             clearcommand();
             appendcommand(cmd);
         }
+        termwindow_.scrollBy({
+            top: termwindow_.scrollHeight,
+            behavior: "smooth"
+        })
     }
 })
 
@@ -187,6 +195,10 @@ document.addEventListener("keypress", function(e){
                 processcommand();
             }
             displayprompt();
+            termwindow_.scrollBy({
+                top: termwindow_.scrollHeight,
+                behavior: "smooth"
+            })
             break;
         default:
             e.preventDefault();
@@ -200,6 +212,10 @@ document.addEventListener("keypress", function(e){
 function displayprompt(){
     termwindow.append(span("prompt", prompt_));
     termwindow.append(span("path", path));
+    termwindow_.scrollBy({
+        top: termwindow_.scrollHeight,
+        behavior: "smooth"
+    })
 }
 
 // Some startup stuffs
