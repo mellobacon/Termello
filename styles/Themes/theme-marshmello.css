@@ -1,0 +1,16 @@
+.window {
+    background-color: gainsboro;
+    color: rgb(255, 255, 255);
+}
+.status-success {
+    color: #89CE94;
+}
+.status-fail {
+    color: #F25F5C;
+}
+.message {
+    color: gray;
+}
+.prompt {
+    color: #DBFCFF;
+}
