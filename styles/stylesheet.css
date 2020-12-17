@@ -12,6 +12,7 @@ html, body {
     margin: 0vh;
     padding: 0vh;
     overflow: hidden;
+    font-family: Cascadia, monospace;
 }
 .terminal {
     height: 100vh;
@@ -21,7 +22,6 @@ html, body {
 }
 .window {
     height: 100%;
-    font-family: Cascadia, monospace;
     color: #ffffff;
     white-space: pre-wrap;
     word-wrap: break-word;
