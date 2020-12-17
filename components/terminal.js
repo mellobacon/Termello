@@ -8,13 +8,13 @@ const prompt_ = "$";
 const path = "~ ";
 let command = "";
 
-let onlinestatus = navigator.onLine ? 'Online\n' : 'Offline\n'; // gets whether app is online or not
-let status = 'Emulator Status: ' + onlinestatus;
+let onlinestatus = navigator.onLine ? span("status-success", "Online" + "\n") : span("status-fail", "Offline" + "\n"); // gets whether app is online or not
+let status = span("title", "Emulator Status: ") + onlinestatus;
 
 
 // UTILITY
 function span(classname, message_){
-    return "<span class=\"" + classname + "\">" + message_ + "</span"
+    return "<span class=\"" + classname + "\">" + message_ + "</span>"
 }
 // END UTILITY
 
@@ -104,7 +104,7 @@ function processcommand(){
     }
 
     if (!isValid){
-        termwindow.append("Command not found: " + command + "\n");
+        termwindow.append(span("status-fail", "Command not found: " + command + "\n"));
     }
 
     // Add to command history and clean up.
@@ -198,8 +198,8 @@ function displayprompt(){
 // Some startup stuffs
 function startterminal(){
     termwindow.append(span("title", "Terminal Emulator - Electron " + process.versions.electron + "\n"));
-    termwindow.append(span("", status));
-    termwindow.append(span("", "For commands type: help (note: not all commands will be functional)\n"))
+    termwindow.append(status);
+    termwindow.append(span("message", "For commands type: help (note: not all commands will be functional)\n"))
     displayprompt();
 }
 
