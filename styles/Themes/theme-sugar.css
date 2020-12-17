@@ -1,0 +1,21 @@
+.window {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.322),rgba(0, 0, 0, 0.4)), url(../media/winter-260817_1920.jpg);
+}
+.status-success {
+    color: #64ce76;
+}
+.status-fail {
+    color: #eb3a37;
+}
+.message {
+    color: rgb(180, 180, 180);
+}
+.prompt {
+    color: #0082ad;
+}
+.path {
+    color: #1b6e92;
+}
+.title {
+    color: #ffc802;
+}
