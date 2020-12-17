@@ -1,3 +1,8 @@
+@font-face {
+    font-family: Cascadia;
+    src: url("../components/Utility/Fonts/CascadiaCode.ttf");
+}
+
 * {
     box-sizing: border-box;
 }
@@ -16,7 +21,7 @@ html, body {
 }
 .window {
     height: 100%;
-    font-family: monospace;
+    font-family: Cascadia, monospace;
     color: #ffffff;
     white-space: pre-wrap;
     word-wrap: break-word;
