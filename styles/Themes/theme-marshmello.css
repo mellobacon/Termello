@@ -1,5 +1,7 @@
-.window {
+.terminal {
     background-color: gainsboro;
+}
+.window {
     color: rgb(255, 255, 255);
 }
 .status-success {
