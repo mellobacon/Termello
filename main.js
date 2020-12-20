@@ -2,8 +2,20 @@ const {app, BrowserWindow, Menu, MenuItem} = require("electron");
 if (require('electron-squirrel-startup')) return app.quit();
 
 let mainWindow;
+let w;
 const menu = new Menu();
-
+function x(){
+    w = new BrowserWindow({
+        autoHideMenuBar: true,
+        height: 400,
+        width: 500,
+        frame: false
+    });
+    w.loadURL(`file://${__dirname}/preferences.html`)
+    w.on("closed", function() {
+        w = null;
+    });
+}
 function createWindow() {
     mainWindow = new BrowserWindow({
         autoHideMenuBar: true,
@@ -22,13 +34,27 @@ function createWindow() {
             label: 'File',
             submenu: [
                 {label:'About'},
-                {label:'Exit'}
+                {label:'Debug', click(){
+                    
+                }},
+                {
+                    label:'Exit',
+                    click(){
+                        app.quit()
+                    },
+                    accelerator:"CmdOrCtrl+Shift+C"
+                }
             ]
         },
         {
             label: "Edit",
             submenu: [
-                {label: "Preferences"}
+                {
+                    label: "Preferences",
+                    click(){
+                        x()
+                    }
+                }
             ]
         }
     ])
@@ -37,6 +63,7 @@ function createWindow() {
     mainWindow.loadURL(`file://${__dirname}/index.html`);
     mainWindow.on("closed", function() {
         mainWindow = null;
+        app.quit();
     });
 }
 

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <!--<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';">-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Preferences</title>
+        <link rel="stylesheet" href="./styles/preferences.css">
+        <!--Load theme-->
+        <link rel="stylesheet" href="./styles/Themes/theme-default.css">
+    </head>
+    <body>
+
+        <div id="sidebar">
+            <p id="Appearance" class="sidebar-item">Appearance</p>
+        </div>
+        
+        <div id="content">
+            <div id="appearance">
+                <form>
+                    <label class="label">Themes</label>
+                    <select>
+                        <option class="theme-choice" value="default">default</option>
+                        <option class="theme-choice" value="marshmello">marshmello</option>
+                        <option class="theme-choice" value="sugar">sugar</option>
+                    </select>
+                </form>
+            </div>
+        </div>
+        <script>window.$ = window.jQuery = require('./components/Utility/jquery.js');</script>
+        <script src="components/theme-switcher.js"></script>
+        <script src="./components/renderer.js"></script>
+        <script src="components/preferences.js"></script>
+    </body>
+</html>

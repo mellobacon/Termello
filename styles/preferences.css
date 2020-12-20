@@ -1,0 +1,47 @@
+@font-face {
+    font-family: Cascadia;
+    src: url("../components/Utility/Fonts/CascadiaCode.ttf");
+}
+
+*{
+    box-sizing: border-box;
+    font-family: Cascadia;
+}
+html, body {
+    padding: 0;
+    margin: 0;
+}
+#sidebar {
+    float: left;
+    /*padding: 5px 0;*/
+    position: fixed;
+    height: 100%;
+    overflow-x: hidden;
+    color: white;
+    width: 83px;
+    z-index: 1;
+    text-align: center;
+    background-color: rgb(53, 53, 53);
+}
+.sidebar-item {
+    padding: 5px;
+    font-size: 13px;
+    background-color: rgb(44, 44, 44);
+    margin: 0;
+}
+.sidebar-item:hover {
+    background-color: black;
+    cursor: pointer;
+}
+#content {
+    margin-left: 83px;
+    background-color:black;
+    height: 100vh;
+    margin-top:0;
+}
+#appearance {
+    color: white;
+}
+.label {
+    color:white;
+}
