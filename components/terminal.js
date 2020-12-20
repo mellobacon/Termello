@@ -203,10 +203,13 @@ document.addEventListener("keypress", function(e){
         default:
             e.preventDefault();
             appendcommand(String.fromCharCode(key));
+            termwindow_.scrollBy({
+                top: termwindow_.scrollHeight,
+                behavior: "smooth"
+            })
     }
 })
 // End typing
-
 
 // Displays "$ ~ in the console (default for now until file paths work)"
 function displayprompt(){
