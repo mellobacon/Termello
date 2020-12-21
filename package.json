@@ -1,7 +1,7 @@
 {
   "name": "Termello",
-  "version": "1.0.0",
-  "main": "main.js",
+  "version": "0.2a",
+  "main": "dist/main.js",
   "scripts": {
     "start": "electron .",
     "package": "electron-forge package",
@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "custom-electron-titlebar": "^3.2.5",
+    "electron": "^11.1.0",
     "electron-squirrel-startup": "^1.0.0",
     "node": "^15.4.0"
   },
@@ -19,6 +20,7 @@
     "@electron-forge/maker-rpm": "^6.0.0-beta.54",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
     "@electron-forge/maker-zip": "^6.0.0-beta.54",
+    "custom-electron-titlebar": "^3.2.5",
     "electron": "^11.1.0"
   }
 }
