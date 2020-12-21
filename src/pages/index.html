@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <!--<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';">-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>TERMELLO</title>
+        <!--Default stylesheet (required)-->
+        <link rel="stylesheet" href="../styles/stylesheet.css">
+        <!--Load theme-->
+        <link id="console-theme" rel="stylesheet" href="../styles/Themes/theme-default.css">
+    </head>
+    <body>
+        <div class="terminal">
+           <div class="window"></div>
+        </div>
+
+        <script>window.$ = window.jQuery = require('../components/Utility/jquery.js');</script>
+        <script src="../components/terminal.js" defer></script>
+        <script src="../components/renderer.js"></script>
+        <script src="../components/theme-switcher.js"></script>
+    </body>
+</html>

@@ -1,91 +1,71 @@
 "use strict";
+const cmds = require("../components/commands.class");
+const c = cmds.CMDS;
 
-const termwindow = $(".window");
-const termwindow_ = document.querySelector(".window"); // This is here to get the clear command working
-
-const prompt_ = "$";
-const path = "~ ";
-let command = "";
-
-let onlinestatus = navigator.onLine ? span("status-success", "Online" + "\n") : span("status-fail", "Offline" + "\n"); // gets whether app is online or not
-let status = span("title", "Emulator Status: ") + onlinestatus;
-
+const {ipcMain} = require("electron").remote;
+const electron = require("electron").remote;
 
 // UTILITY
+
+// Allows for theme toggling
+ipcMain.on("theme", function(e, arg){
+    ToggleTheme(arg);
+})
+
+// Entering a span element allows for styling
 function span(classname, message_){
     return "<span class=\"" + classname + "\">" + message_ + "</span>"
 }
 // END UTILITY
 
-//TODO Move these to their own class
-// List of command functions
-function clear(){
-    termwindow_.textContent = "";
-}
-function echo(args){
-    let str = args.join(" ");
-    termwindow.append(str + "\n");
-}
-function help(){
-    commands.forEach(element => {
-        termwindow.append(element.name + " - " + element.description + "\n");
-    });
-}
-function exit(){
-    window.close();
-}
-function whoami(){
-    termwindow.append("Command not available\n");
-}
-function kill(){
-    termwindow.append("Command not available\n")
-}
-function whatis(args) {
-    commands.forEach(element => {
-        if (args == element.name){
-            termwindow.append(element.name + " - " + element.description + "\n");
-        }
-    })
-}
-// End command functions
 
+const termwindow = $(".window");
+const termwindow_ = document.querySelector(".window"); // This is here to get the clear command working
 
+const path =  electron.app.getAppPath();
+const prompt_ = ">";
+let command = "";
 
+// Get online status (for external links)
+let onlinestatus = navigator.onLine ? span("status-success", "Online" + "\n") : span("status-fail", "Offline" + "\n"); // gets whether app is online or not
+let status = span("title", "Emulator Status: ") + onlinestatus;
 
+// Get release version
+let version = electron.app.getVersion();
+let appversion = span("title", "Termello v" + version + "\n");
+
+//TODO Move these to commands class
 // List of commands
 const commands = [{
     "name": "clear",
-    "function": clear,
+    "function": c.clear,
     "description": "Clears the terminal"
 }, {
     "name": "help",
-    "function": help,
+    "function": c.help,
     "description": "Displays commands"
 }, {
     "name": "echo",
-    "function": echo,
+    "function": c.echo,
     "description": "Returns string given"
 }, {
     "name": "exit",
-    "function": exit,
+    "function": c.exit,
     "description": "Exits the application"
 }, {
     "name": "whoami",
-    "function": whoami,
+    "function": c.whoami,
     "description": "Displays info about user (not yet implemented)"
 }, {
     "name": "kill",
-    "function": kill,
+    "function": c.kill,
     "description": "Kills running command (not yet implemented)"
 }, {
     "name": "whatis",
-    "function": whatis,
+    "function": c.whatis,
     "description": "Displays help about a single command"
 }];
 // End commands
-
-
-
 
 let commandHistory = [];
 let historyIndex = 0;
@@ -213,8 +193,8 @@ document.addEventListener("keypress", function(e){
 
 // Displays "$ ~ in the console (default for now until file paths work)"
 function displayprompt(){
-    termwindow.append(span("prompt", prompt_));
     termwindow.append(span("path", path));
+    termwindow.append(span("prompt", prompt_));
     termwindow_.scrollBy({
         top: termwindow_.scrollHeight,
         behavior: "smooth"
@@ -223,7 +203,7 @@ function displayprompt(){
 
 // Some startup stuffs
 function startterminal(){
-    termwindow.append(span("title", "Terminal Emulator - Electron 11.1.0\n"));
+    termwindow.append(span("title", appversion + "- Electron 11.1.0\n"));
     termwindow.append(status);
     termwindow.append(span("message", "For commands type: help (note: not all commands will be functional)\n"))
     displayprompt();

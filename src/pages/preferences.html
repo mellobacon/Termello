@@ -2,12 +2,10 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <!--<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';">-->
+        <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Preferences</title>
-        <link rel="stylesheet" href="./styles/preferences.css">
-        <!--Load theme-->
-        <link rel="stylesheet" href="./styles/Themes/theme-default.css">
+        <link rel="stylesheet" href="../styles/preferences.css">
     </head>
     <body>
 
@@ -18,18 +16,19 @@
         <div id="content">
             <div id="appearance">
                 <form>
-                    <label class="label">Themes</label>
-                    <select>
+                    <label class="label">Themes:</label>
+                    <select id="themes">
                         <option class="theme-choice" value="default">default</option>
                         <option class="theme-choice" value="marshmello">marshmello</option>
                         <option class="theme-choice" value="sugar">sugar</option>
+                        <option class="theme-choice" value="matrix">matrix</option>
+                        <option class="theme-choice" value="redsnow">redsnow</option>
                     </select>
                 </form>
             </div>
         </div>
-        <script>window.$ = window.jQuery = require('./components/Utility/jquery.js');</script>
-        <script src="components/theme-switcher.js"></script>
-        <script src="./components/renderer.js"></script>
-        <script src="components/preferences.js"></script>
+        <script src="../components/theme-switcher.js"></script>
+        <script src="../components/renderer.js"></script>
+        <script src="../components/preferences.js"></script>
     </body>
 </html>

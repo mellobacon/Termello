@@ -1,0 +1,6 @@
+.terminal {
+    background-image: linear-gradient(rgba(80, 0, 0, 0.322),rgba(90, 1, 1, 0.4)), url(../media/winter-260817_1920.jpg);
+}
+.window {
+    color: red;
+}

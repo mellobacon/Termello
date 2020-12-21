@@ -41,7 +41,19 @@ html, body {
 }
 #appearance {
     color: white;
+    padding: 1px;
 }
 .label {
     color:white;
+}
+#themes {
+    background-color: #181818;
+    color: #fff;
+    font-size: inherit;
+    padding: .3em;
+    padding-right: 2.5em;
+    border: 0;
+    margin: 0;
+    text-indent: 0.01px;
+    text-overflow: "";
 }

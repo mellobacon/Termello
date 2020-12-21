@@ -1,0 +1,6 @@
+.terminal {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.541)), url(../media/matrix.jpg);
+}
+.window {
+    color: rgb(92, 255, 92);
+}
