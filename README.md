@@ -1,28 +1,33 @@
-# Termello
+<h1 align="center" style="position: relative;">
+  <img width="200" style="border-radius: 50%;" src="./src/Icons/Terminal.png" alt="Termello's Icon" /><br>
+  Termello
+</h1>
 
-<img src="https://github.com/mellobacon/Termello/blob/master/src/Icons/Terminal.png" alt="Termello Icon"/>
-A terminal emulator made in Electron
+<h3 align="center">A terminal emulator made in Electron</h3>
 
 <p align="center">
-  <a href="https://github.com/mellobacon/Termello/releases/tag/0.1.1a">Download</a> •
+  <a href="https://github.com/mellobacon/Termello/blob/master/LICENSE">License</a> •
+  <a href="https://github.com/mellobacon/Termello/releases">Download</a> •
   <a href="https://github.com/mellobacon/Termello/blob/master/CHANGELOG.md">Changelog</a>
 </p>
 
+<div>
+  <h2>How to run it</h2>
+  <strong>Note: This Terminal runs on Windows only</strong>
+  <p>Run the setup.exe to install.<br/>Type <code>help</code> for a list of commands.
+  <br/>Currently you can only use small commands but more will be added soon!</p>
+</div>
 
-# How to run 
+<br/>
 
-**This Terminal runs on Windows only**
+<div>
+<h2>Getting help</h2>
+<p>You can get help by creating an <a href="https://github.com/mellobacon/Termello/issues/new/choose">issue</a> and asking your question.</p>
+</div>
 
-Run the setup.exe to install.
-Type 'help' for a list of commands.
+<br/>
 
-Currently you can only use small commands but more will be added soon!
+<h2>Credits</h2>
 
-
-<br><br>
-
-### Credits
-
-Made by: Mellobacon
-
-*Name credit goes to [ANF-Studios](https://github.com/ANF-Studios)*
+<p>Made by <a href="https://github.com/mellobacon">@mellobacon</a>
+<br/>Name idea and readme design by <a href="https://github.com/ANF-Studios">@ANF-Studios</a>.</p>
