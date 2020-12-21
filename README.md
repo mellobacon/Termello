@@ -1,6 +1,6 @@
 # Termello
 
-<img src="https://github.com/mellobacon/Termello/blob/master/Icons/Terminal.png" alt="Termello Icon"/>
+<img src="https://github.com/mellobacon/Termello/blob/master/src/Icons/Terminal.png" alt="Termello Icon"/>
 A terminal emulator made in Electron
 
 <p align="center">
