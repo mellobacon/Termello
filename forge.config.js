@@ -2,7 +2,7 @@ const path = require('path')
 
 module.exports = {
   "packagerConfig": {
-    "icon": path.join(__dirname, "Icons", "Terminal.ico"),
+    "icon": "./src/Icons/Terminal.ico",
     //"platform": "linux" // Choices are 'darwin', 'mas', 'win32' or 'linux'
     //"arch": "arm64" // Choices are ia32, x64, armv7l, arm64
   },
@@ -10,7 +10,7 @@ module.exports = {
     {
       "name": "@electron-forge/maker-squirrel",
       "config": {
-        "setupIcon": path.join(__dirname, "Icons", "Terminal.ico"),
+        "setupIcon": "./src/Icons/Terminal.ico",
         "iconURL": "https://raw.githubusercontent.com/mellobacon/Termello/master/Icons/Terminal.ico",
         "name": "Termello",
         "authors": "Mellobacon",
