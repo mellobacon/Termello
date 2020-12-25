@@ -1,0 +1,22 @@
+.terminal {
+    background-color:rgba(77, 77, 77, 0.904);
+}
+.status-success {
+    color: #3ebd53;
+}
+.status-fail {
+    color: #c93633;
+}
+.message {
+    color: rgb(165, 165, 165);
+}
+.prompt {
+    color: #0278ff;
+}
+.path {
+    color: #3375cc;
+}
+.title {
+    color: #ffe600;
+}
+
