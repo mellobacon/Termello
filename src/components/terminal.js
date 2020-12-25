@@ -1,16 +1,9 @@
 "use strict";
-const cmds = require("../components/commands.class");
-const c = cmds.CMDS;
 
-const {ipcMain} = require("electron").remote;
 const electron = require("electron").remote;
+const commands = require("../components/commands.class").cmdlist;
 
 // UTILITY
-
-// Allows for theme toggling
-ipcMain.on("theme", function(e, arg){
-    ToggleTheme(arg);
-})
 
 // Entering a span element allows for styling
 function span(classname, message_){
@@ -22,7 +15,7 @@ function span(classname, message_){
 const termwindow = $(".window");
 const termwindow_ = document.querySelector(".window"); // This is here to get the clear command working
 
-const path =  electron.app.getAppPath();
+const path = "[user@Termello]";
 const prompt_ = ">";
 let command = "";
 
@@ -32,40 +25,7 @@ let status = span("title", "Emulator Status: ") + onlinestatus;
 
 // Get release version
 let version = electron.app.getVersion();
-let appversion = span("title", "Termello v" + version + "\n");
-
-//TODO Move these to commands class
-// List of commands
-const commands = [{
-    "name": "clear",
-    "function": c.clear,
-    "description": "Clears the terminal"
-}, {
-    "name": "help",
-    "function": c.help,
-    "description": "Displays commands"
-}, {
-    "name": "echo",
-    "function": c.echo,
-    "description": "Returns string given"
-}, {
-    "name": "exit",
-    "function": c.exit,
-    "description": "Exits the application"
-}, {
-    "name": "whoami",
-    "function": c.whoami,
-    "description": "Displays info about user (not yet implemented)"
-}, {
-    "name": "kill",
-    "function": c.kill,
-    "description": "Kills running command (not yet implemented)"
-}, {
-    "name": "whatis",
-    "function": c.whatis,
-    "description": "Displays help about a single command"
-}];
-// End commands
+let appversion = span("title", "Termello - v" + version);
 
 let commandHistory = [];
 let historyIndex = 0;
@@ -122,7 +82,6 @@ document.addEventListener("keydown", function(e){
     e = e || window.Event;
     let key = typeof e.which === "number" ? e.which : e.key;
     if (key == 8) {
-        console.log(command)
         e.preventDefault();
         if (command !== "" && command !== "\n") {
             erase(1);
@@ -153,7 +112,6 @@ document.addEventListener("keydown", function(e){
         // Get command
         var cmd = commandHistory[historyIndex];
         if (cmd !== undefined) {
-            console.log(cmd);
             clearcommand();
             appendcommand(cmd);
         }
@@ -203,7 +161,7 @@ function displayprompt(){
 
 // Some startup stuffs
 function startterminal(){
-    termwindow.append(span("title", appversion + "- Electron 11.1.0\n"));
+    termwindow.append(span("title", appversion + " : Electron - 11.1.0\n"));
     termwindow.append(status);
     termwindow.append(span("message", "For commands type: help (note: not all commands will be functional)\n"))
     displayprompt();
