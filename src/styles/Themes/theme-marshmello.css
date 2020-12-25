@@ -1,11 +1,11 @@
 .terminal {
-    background-color: gainsboro;
+    background-color: rgba(220, 220, 220, 0.829);
 }
 .window {
     color: rgb(255, 255, 255);
 }
 .status-success {
-    color: #89CE94;
+    color: #46c75b;
 }
 .status-fail {
     color: #F25F5C;
