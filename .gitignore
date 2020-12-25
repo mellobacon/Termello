@@ -128,3 +128,4 @@ dist
 out/
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,node
+src/components/Utility/shell.js
