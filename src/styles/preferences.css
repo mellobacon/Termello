@@ -13,12 +13,11 @@ html, body {
 }
 #sidebar {
     float: left;
-    /*padding: 5px 0;*/
     position: fixed;
     height: 100%;
     overflow-x: hidden;
     color: white;
-    width: 83px;
+    width: 95px;
     z-index: 1;
     text-align: center;
     background-color: rgb(53, 53, 53);
@@ -34,7 +33,7 @@ html, body {
     cursor: pointer;
 }
 #content {
-    margin-left: 83px;
+    margin-left: 95px;
     background-color:black;
     height: 100vh;
     margin-top:0;
@@ -56,4 +55,62 @@ html, body {
     margin: 0;
     text-indent: 0.01px;
     text-overflow: "";
+}
+#font-size-control {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    font-size: 15px;
+}
+#counter {
+    position: relative;
+    width: 27px;
+    height: 18px;
+    color: #ffffff;
+    text-align: center;
+    overflow: hidden;
+}
+.counter {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 100ms ease-in;
+}
+.counter-input {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    z-index: 2;
+    box-shadow: none;
+    outline: none;
+    border: none;
+    color: #ffffff;
+    font-size: 20px;
+    line-height: 25px;
+    text-align: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 100ms ease-in;
+}
+.counter-num {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    line-height: 18px;
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 1000ms ease-in;
+}
+.ctrl {
+    width: 18px;
+    line-height: 17px;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+    background-color: #8498a7;
+    transition: background-color 100ms ease-in;
 }
