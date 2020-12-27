@@ -15,7 +15,7 @@
   <h2>How to run it</h2>
   <strong>Note: This Terminal runs on Windows only</strong>
   <p>Run the setup.exe to install.<br/>Type <code>help</code> for a list of commands.
-  <br/>Currently you can only use small commands but more will be added soon!</p>
+  <br/>Currently you cam use common UNIX commands. More will be added soon!</p>
 </div>
 
 <br/>
