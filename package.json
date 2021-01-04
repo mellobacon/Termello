@@ -1,6 +1,6 @@
 {
   "name": "Termello",
-  "version": "0.2",
+  "version": "0.2.0",
   "main": "dist/main.js",
   "scripts": {
     "start": "electron .",
@@ -11,11 +11,10 @@
   "dependencies": {
     "augmented-ui": "^2.0.0",
     "custom-electron-titlebar": "^3.2.5",
-    "electron-forge": "^5.2.4",
     "electron-squirrel-startup": "^1.0.0",
     "node": "^15.4.0",
     "shelljs": "^0.8.4",
-    "systeminformation": "^4.33.6"
+    "systeminformation": "^4.33.7"
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.54",
