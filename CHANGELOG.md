@@ -1,6 +1,6 @@
 <h1 align="center">CHANGELOG</h1>
 
-## [0.2b]()
+## [0.2]()
 - New Features
   - Added lots of new Unix commands (type <code>help</code> for the list of commands)
   - Syntax highlighting. The terminal now has colors instead of plain white.
