@@ -26,7 +26,16 @@ module.exports = {
     },
     {
       "name": "@electron-forge/maker-deb",
-      "config": {}
+      "platforms": [
+        "darwin",
+        "linux"
+      ],
+      "config": {
+        "options": {
+          "name": "Termello",
+          "iconURL": "https://raw.githubusercontent.com/mellobacon/Termello/master/Icons/Terminal.ico",
+        }
+      }
     },
     {
       "name": "@electron-forge/maker-rpm",
