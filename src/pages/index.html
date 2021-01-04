@@ -5,13 +5,15 @@
         <!--<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';">-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>TERMELLO</title>
+        <!--UI stylesheet (required)-->
+        <link rel="stylesheet" type="text/css" href="https://unpkg.com/augmented-ui@2/augmented-ui.min.css">
         <!--Default stylesheet (required)-->
         <link rel="stylesheet" href="../styles/stylesheet.css">
         <!--Load theme-->
         <link id="console-theme" rel="stylesheet" href="../styles/Themes/theme-default.css">
     </head>
     <body>
-        <div class="terminal">
+        <div data-augmented-ui="br-clip bl-clip" class="terminal">
            <div class="window"></div>
         </div>
 
