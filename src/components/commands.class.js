@@ -1,21 +1,54 @@
+const { userInfo } = require('os');
 var shell = require('shelljs');
 shell.config.execPath = shell.which('node').toString()
 
 //#region Command Functions
-function brackeys(){
-    const str = 
-        `
-        ######  ######     #     #####  #    # ####### #     #  #####  
-        #     # #     #   # #   #     # #   #  #        #   #  #     # 
-        #     # #     #  #   #  #       #  #   #         # #   #       
-        ######  ######  #     # #       ###    #####      #     #####  
-        #     # #   #   ####### #       #  #   #          #          # 
-        #     # #    #  #     # #     # #   #  #          #    #     # 
-        ######  #     # #     #  #####  #    # #######    #     #####  `
-    termwindow.append(str + "\n")
+function whoami(){
+    termwindow.append(userInfo().username);
+}
+function exec(arg){
+    termwindow.append(shell.exec(arg.join(" ")).stdout + "\n");
+}
+function pushd(arg){
+    if (arg[0] === undefined){
+        arg[0] = "-q";
+    }
+    if (arg[1] === undefined){
+        arg[1] = shell.pwd();
+    }
+    shell.pushd(arg[0], arg[1]);
+    if (shell.error() != null){
+        termwindow.append(shell.error() + "\n");
+    }
+}
+function popd(arg){
+    if (arg[0] === undefined){
+        arg[0] = "-q";
+    }
+    shell.popd(arg[0], arg[1]);
+    if (shell.error() != null){
+        termwindow.append(shell.error() + "\n");
+    }
+}
+function dirs(arg){
+    if (arg[0] === undefined){
+        arg[0] = "-q";
+    }
+    shell.dirs(arg[0]).forEach(element => {
+        element.split(",");
+        termwindow.append(element + "\n");
+    })
 }
 function touch(arg){
-    termwindow.append(shell.touch(arg[0], arg[1], arg[2]))
+    if (arg[1] === undefined && arg[2] === undefined){
+        termwindow.append(shell.touch(arg[0]));
+    }
+    else {
+        termwindow.append(shell.touch(arg[0], arg[1], arg[2]));
+    }
+    if (shell.error() != null){
+        termwindow.append(shell.error() + "\n");
+    }
 }
 function test(arg){
     termwindow.append(shell.test(arg[0], arg[1]));
@@ -24,7 +57,7 @@ function test(arg){
     }
 }
 function sort(arg){
-    termwindow.append(arg[0], arg[1], arg[2]);
+    termwindow.append(shell.sort(arg.join(" ")));
     if (shell.error() != null){
         termwindow.append(shell.error() + "\n");
     }
@@ -36,28 +69,48 @@ function mv(arg){
     }
 }
 function grep(arg){
-    termwindow.append(shell.grep(arg[0],arg[1], arg[2]));
+    if (arg[2] === undefined){
+        termwindow.append(shell.grep(arg[0],arg[1]));
+    }
+    else {
+        termwindow.append(shell.grep(arg[0],arg[1], arg[2]));
+    }
     if (shell.error() != null){
         termwindow.append(shell.error() + "\n");
     }
 }
 function find(arg){
-    termwindow.append(shell.find(arg[0]));
+    termwindow.append(shell.find(arg[0]) + "\n");
     if (shell.error() != null){
         termwindow.append(shell.error() + "\n");
     }
 }
 function cp(arg){
-    shell.cp(arg[0],arg[1],arg[2]);
+    //shell.cp(arg.join(" "));
+    termwindow.append("cp is disabled until bug is fixed :)")
     if (shell.error() != null){
         termwindow.append(shell.error() + "\n");
     }
 }
 function cat(arg){
-    termwindow.append(shell.cat(arg[0], arg[1]));
+    if (arg[1] === undefined){
+        termwindow.append(shell.cat(arg[0]) + "\n");
+    }
+    else {
+        termwindow.append(shell.cat(arg[0], arg[1]) + "\n");
+    }
+    if (shell.error() != null){
+        termwindow.append(shell.error() + "\n");
+    }
 }
 function rm(arg){
-    shell.rm(arg[0], arg[1]);
+    process.noAsar = true
+    if (arg[1] === undefined){
+        shell.rm(arg[0]);
+    }
+    else {
+        shell.rm(arg[0], arg[1]);
+    }
     if (shell.error() != null){
         termwindow.append(shell.error() + "\n");
     }
@@ -76,15 +129,7 @@ function cd(arg){
     }
 }
 function ls(arg){
-    console.log(arg);
-    if (arg === undefined){
-        arg[1] = shell.pwd();
-    }
-    if (arg[0] === "-l"){
-        arg[0] = "";
-    }
-    shell.ls(arg[0], arg[1]).forEach(element => {
-        element.split(",");
+    shell.ls(arg.join(" ")).forEach(element => {
         termwindow.append(element + "\n");
     })
 }
@@ -92,7 +137,10 @@ function clear(){
     termwindow_.textContent = "";
 }
 function echo(arg){
-    termwindow.append(shell.echo(arg[0], arg[1]))
+    if (arg.toString() === ""){
+        termwindow.append("Echo....echo....echo...echo....");
+    }
+    termwindow.append(shell.echo(arg.join(" ")))
 }
 function help(){
     commands.forEach(element => {
@@ -100,13 +148,8 @@ function help(){
     });
 }
 function exit(){
+    termwindow.append("Closing...");
     window.close();
-}
-function whoami(){
-    termwindow.append("Command not available\n");
-}
-function kill(){
-    termwindow.append("Command not available\n")
 }
 function whatis(args) {
     commands.forEach(element => {
@@ -134,14 +177,6 @@ const commands = [{
     "name": "exit",
     "function": exit,
     "description": "Exits the application"
-}, {
-    "name": "whoami",
-    "function": whoami,
-    "description": "Displays info about user (not yet implemented)"
-}, {
-    "name": "kill",
-    "function": kill,
-    "description": "Kills running command (not yet implemented)"
 }, {
     "name": "whatis",
     "function": whatis,
@@ -193,15 +228,31 @@ const commands = [{
 }, {
     "name": "mv",
     "function": mv,
-    "description": "Move a file to destination"
+    "description": "Move a file to given destination or rename the file"
 }, {
     "name": "grep",
     "function": grep,
-    "description": "Search for a file"
+    "description": "Search for parameter inside file"
 }, {
-    "name": "brackeys",
-    "function": brackeys,
-    "description": "In honor of the big bracks :)"
+    "name": "pushd",
+    "function": pushd,
+    "description": "Saves directory to the stack"
+}, {
+    "name": "popd",
+    "function": popd,
+    "description": "Gets the top most directory and removes it from the stack"
+}, {
+    "name": "dirs",
+    "function": dirs,
+    "description": "Returns list of directories in the stack"
+}, {
+    "name": "./",
+    "function": exec,
+    "description": "Execute a program"
+}, {
+    "name": "whoami",
+    "function": whoami,
+    "description": "Returns username"
 }];
 //#endregion
 
