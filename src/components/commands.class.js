@@ -148,7 +148,7 @@ function help(){
     });
 }
 function exit(){
-    termwindow.append("Closing...");
+    termwindow.append("Closing..." + "\n");
     window.close();
 }
 function whatis(args) {
