@@ -1,7 +1,10 @@
 "use strict";
 
+const { userInfo } = require('os');
+const si = require("systeminformation");
 const electron = require("electron").remote;
 const commands = require("../components/commands.class").cmdlist;
+const { clipboard } = require('electron');
 
 // UTILITY
 
@@ -9,16 +12,17 @@ const commands = require("../components/commands.class").cmdlist;
 function span(classname, message_){
     return "<span class=\"" + classname + "\">" + message_ + "</span>"
 }
+
 // END UTILITY
 
 
 const termwindow = $(".window");
 const termwindow_ = document.querySelector(".window"); // This is here to get the clear command working
+let user = userInfo().username;
 
-const path = "[user@Termello]";
+const path = "["+ user + "@Termello]";
 const prompt_ = ">";
 let command = "";
-
 // Get online status (for external links)
 let onlinestatus = navigator.onLine ? span("status-success", "Online" + "\n") : span("status-fail", "Offline" + "\n"); // gets whether app is online or not
 let status = span("title", "Emulator Status: ") + onlinestatus;
@@ -93,6 +97,7 @@ document.addEventListener("keydown", function(e){
     }
     // Allows moving through command history
 	if (key === 38 || key === 40) {
+        e.preventDefault();
         // Move up or down the history
         // Up key
         if (key === 38) {
@@ -119,6 +124,27 @@ document.addEventListener("keydown", function(e){
             top: termwindow_.scrollHeight,
             behavior: "smooth"
         })
+    }
+
+    // Keys for copy and paste
+    if (e.ctrlKey){
+        switch (e.code){
+            case "KeyC":
+                clipboard.writeText(window.getSelection().toString());
+        }
+    }
+    if (e.ctrlKey){
+        switch (e.code){
+            case "KeyV":
+                appendcommand(clipboard.readText());
+        }
+    }
+})
+
+// Allows pasting with the "right" mouse button
+document.addEventListener("mousedown", function(e){
+    if (e.button === 2){
+        appendcommand(clipboard.readText());
     }
 })
 
@@ -161,7 +187,7 @@ function displayprompt(){
 
 // Some startup stuffs
 function startterminal(){
-    termwindow.append(span("title", appversion + " : Electron - 11.1.0\n"));
+    termwindow.append(span("title", appversion + " : Electron - 11.1.1\n"));
     termwindow.append(status);
     termwindow.append(span("message", "For commands type: help (note: not all commands will be functional)\n"))
     displayprompt();
