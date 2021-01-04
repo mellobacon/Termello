@@ -12,7 +12,6 @@ function createSettingsWindow(){
             enableRemoteModule: true
         }
     });
-    w.webContents.openDevTools();
 
     w.loadFile("src/pages/preferences.html");
     
@@ -49,7 +48,7 @@ ipcRenderer.once("create-titlebar", function(){
                     click(){
                         createSettingsWindow();
                     },
-                }
+                },
             ]
     }));
     new customTitlebar.Titlebar({
