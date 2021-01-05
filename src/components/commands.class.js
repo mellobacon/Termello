@@ -4,7 +4,7 @@ shell.config.execPath = shell.which('node').toString()
 
 //#region Command Functions
 function whoami(){
-    termwindow.append(userInfo().username);
+    termwindow.append(userInfo().username + "\n");
 }
 function exec(arg){
     termwindow.append(shell.exec(arg.join(" ")).stdout + "\n");
