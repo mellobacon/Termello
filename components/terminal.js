@@ -14,7 +14,7 @@ function clear(){
     termwindow.textContent = "";
 }
 function echo(args){
-    let str = args.join(" ");
+    const str = args.join(" ");
     termwindow.append(str + "\n");
 }
 function help(){
@@ -53,38 +53,24 @@ const commands = [{
     "function" : kill
 }];
 
-let commandHistory = [];
+const commandHistory = [];
 let historyIndex = 0;
 
 function processcommand(){
-    let isValid = false;
+    const args = command.split(' ');
+    //Use the find method which is better then a for loop
+    const cmd = commands.find(cmd => cmd.name == args[0]);
 
-    let args = command.split(" ");
-    let cmd = args[0];
-    args.shift();
-
-    // Iterate through the available commands to find a match.
-    // Then call that command and pass in any arguments.
-    for (let i = 0; i < commands.length; i++) {
-        if (cmd === commands[i].name) {
-            commands[i].function(args);
-            isValid = true;
-            break;
-        }
-    }
-
-    if (!isValid){
-        termwindow.append("Command not found: " + command);
-    }
+    if (cmd == null) termwindow.append("Command not found: " + command);
+    else cmd.function();
 
     // Add to command history and clean up.
-	commandHistory.push(command);
-	historyIndex = commandHistory.length;
+    commandHistory.unshift(cmd);
 	command = "";
 }
 
-let onlinestatus = navigator.onLine ? 'Online\n' : 'Offline\n'; // gets whether app is online or not
-let status = 'Emulator Status: ' + onlinestatus;
+const onlinestatus = navigator.onLine ? 'Online\n' : 'Offline\n'; // gets whether app is online or not
+const status = 'Emulator Status: ' + onlinestatus;
 
 function startterminal(){
     termwindow.append("Terminal Emulator - Electron " + process.versions.electron + "\n");
@@ -104,24 +90,22 @@ function appendcommand(str){
 }
 
 function erase(n){
+    if(command.length == 0) return;
     command = command.slice(0, -n);
-    termwindow.textContent.slice(0, -n);
+    termwindow.textContent = termwindow.textContent.slice(0, -n);
 }
 
 document.addEventListener("keydown", function(e){
     e = e || window.Event;
-    let key = typeof e.which === "number" ? e.which : e.key;
-    if (key == 8){
-        console.log(command)
-        e.preventDefault();
-        erase(1);
-    }
+    const key = typeof e.which === "number" ? e.which : e.key;
+    if (key == 8) erase(1);
 })
 
 // Allows typing to go brr (except erasing for no fucking reason)
+//Now it's fixed :)
 document.addEventListener("keypress", function(e){
     e = e || window.Event;
-    let key = typeof e.which === "number" ? e.which : e.key;
+    const key = typeof e.which === "number" ? e.which : e.key;
     switch (key){
         case 13:
             appendcommand(" \n");
