@@ -11,7 +11,7 @@ function createWindow() {
         width: 900,
         frame: false,
         transparent: true,
-        icon: path.join(__dirname, '../src/Icons/Terminal.ico'),
+        icon: path.join(__dirname, 'Icons/Terminal.ico'),
         webPreferences: {
             nodeIntegration: true,
             enableRemoteModule: true,

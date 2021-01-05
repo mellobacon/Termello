@@ -45,6 +45,7 @@ function processcommand(){
 	commandHistory.splice(1, 0, command);
     command = "";
     historyIndex = 0;
+    commandHistory[0] = '';
 }
 
 function appendcommand(str){
@@ -93,7 +94,6 @@ document.addEventListener("keydown", (e) => {
         }
 
         // Get command
-        console.log(historyIndex)
         const cmd = (historyIndex >= 0) ? commandHistory[historyIndex] : '';
         if (cmd != undefined) {
             clearcommand();
