@@ -3,7 +3,7 @@ const { ipcRenderer, remote} = require('electron');
 
 
 function createSettingsWindow(){
-    let w = new remote.BrowserWindow({
+    let mainWindow = new remote.BrowserWindow({
         autoHideMenuBar: true,
         height: 400,
         width: 500,
@@ -13,11 +13,9 @@ function createSettingsWindow(){
         }
     });
 
-    w.loadFile("src/pages/preferences.html");
+    mainWindow.loadFile("src/pages/preferences.html");
     
-    w.on("closed", function(){
-        w = null;
-    });
+    mainWindow.on("closed", () => mainWindow = null);
 }
 
 
