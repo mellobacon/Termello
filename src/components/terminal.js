@@ -1,7 +1,6 @@
 "use strict";
 
-const { userInfo } = require('os');
-const si = require("systeminformation");
+const os = require('os');
 const electron = require("electron").remote;
 const commands = require("../components/commands.class").cmdlist;
 const { clipboard } = require('electron');
@@ -18,9 +17,8 @@ function span(classname, message_){
 
 const termwindow = $(".window");
 const termwindow_ = document.querySelector(".window"); // This is here to get the clear command working
-let user = userInfo().username;
 
-const path = "["+ user + "@Termello]";
+const path = "["+ os.userInfo().username + "@" + os.hostname + "]";
 const prompt_ = ">";
 let command = "";
 // Get online status (for external links)
