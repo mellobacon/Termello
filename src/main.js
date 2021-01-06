@@ -1,5 +1,5 @@
-const {app, BrowserWindow, Menu, ipcMain} = require("electron");
-const shell = require("electron").shell;
+const { app, BrowserWindow, Menu } = require("electron");
+const path = require('path');
 
 let mainWindow;
 let menu = new Menu();
@@ -11,7 +11,7 @@ function createWindow() {
         width: 900,
         frame: false,
         transparent: true,
-        icon: "../Icons/Terminal.ico",
+        icon: path.join(__dirname, 'Icons/Terminal.ico'),
         webPreferences: {
             nodeIntegration: true,
             enableRemoteModule: true,

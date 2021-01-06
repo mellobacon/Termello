@@ -1,7 +1,7 @@
 {
   "name": "Termello",
   "version": "0.2.0",
-  "main": "dist/main.js",
+  "main": "src/main.js",
   "scripts": {
     "start": "electron .",
     "package": "electron-forge package",

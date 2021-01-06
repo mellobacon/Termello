@@ -29,36 +29,23 @@ let status = span("title", "Emulator Status: ") + onlinestatus;
 let version = electron.app.getVersion();
 let appversion = span("title", "Termello - v" + version);
 
-let commandHistory = [];
+const commandHistory = [''];
 let historyIndex = 0;
 
 // Functions for making the terminal do its job
 function processcommand(){
-    let isValid = false;
-
-    let args = command.split(" ");
-    let cmd = args[0];
+    const args = command.split(" ");
+    const typedCommand = commands.find(cmd => cmd.name === args[0]);
     args.shift();
 
-    // Iterate through the available commands to find a match.
-    // Then call that command and pass in any arguments.
-    for (let i = 0; i < commands.length; i++) {
-        // Process the command
-        if (cmd === commands[i].name) {
-            commands[i].function(args);
-            isValid = true;
-            break;
-        }
-    }
-
-    if (!isValid) {
-        termwindow.append(span("status-fail", "Command not found: " + command + "\n"));
-    }
+    if (typedCommand == null) termwindow.append(span("status-fail", "Command not found: " + command + "\n"));
+    else typedCommand.function(args);
 
     // Add to command history and clean up
-	commandHistory.push(command);
-	historyIndex = commandHistory.length;
-	command = "";
+	commandHistory.splice(1, 0, command);
+    command = "";
+    historyIndex = 0;
+    commandHistory[0] = '';
 }
 
 function appendcommand(str){
@@ -80,9 +67,9 @@ function erase(n){
 
 
 // Allows backspacing
-document.addEventListener("keydown", function(e){
+document.addEventListener("keydown", (e) => {
     e = e || window.Event;
-    let key = typeof e.which === "number" ? e.which : e.key;
+    const key = typeof e.which === "number" ? e.which : e.key;
     if (key == 8) {
         e.preventDefault();
         if (command !== "" && command !== "\n") {
@@ -99,22 +86,16 @@ document.addEventListener("keydown", function(e){
         // Move up or down the history
         // Up key
         if (key === 38) {
-            historyIndex--;
-            if (historyIndex < 0) {
-                historyIndex++;
-            }
+            if(historyIndex < commandHistory.length - 1) historyIndex++;
         } 
         // Down key
         else if (key === 40) {
-            historyIndex++;
-            if (historyIndex > commandHistory.length - 1) {
-                historyIndex--;
-            }
+            if(historyIndex > 0) historyIndex--;
         }
 
         // Get command
-        var cmd = commandHistory[historyIndex];
-        if (cmd !== undefined) {
+        const cmd = (historyIndex >= 0) ? commandHistory[historyIndex] : '';
+        if (cmd != undefined) {
             clearcommand();
             appendcommand(cmd);
         }
@@ -165,6 +146,7 @@ document.addEventListener("keypress", function(e){
         default:
             e.preventDefault();
             appendcommand(String.fromCharCode(key));
+            commandHistory[0] = command;
             termwindow_.scrollBy({
                 top: termwindow_.scrollHeight,
                 behavior: "smooth"
