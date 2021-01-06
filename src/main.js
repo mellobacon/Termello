@@ -18,7 +18,6 @@ function createWindow() {
             experimentalFeatures: true
         }
     });
-    mainWindow.webContents.openDevTools();
     mainWindow.webContents.once("did-finish-load", function(){
         mainWindow.webContents.send("create-titlebar");
     })
