@@ -1,8 +1,8 @@
 .terminal {
-    background-color: rgba(220, 220, 220, 0.938);
+    background-color: rgba(220, 220, 220, 0.7);
 }
 .window {
-    color: rgb(119, 119, 119);
+    color: rgb(236, 236, 236);
 }
 .status-success {
     color: #46c75b;
