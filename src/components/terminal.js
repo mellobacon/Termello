@@ -3,6 +3,8 @@
 const os = require('os');
 const electron = require("electron").remote;
 const commands = require("../components/commands.class").cmdlist;
+const spawn = require("child_process").spawn;
+var shell_ = require('shelljs');
 const { clipboard } = require('electron');
 
 // UTILITY
@@ -12,15 +14,27 @@ function span(classname, message_){
     return "<span class=\"" + classname + "\">" + message_ + "</span>"
 }
 
+function escapeHTML(html) {
+    return html.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
 // END UTILITY
 
+const shell = os.platform() === 'win32' ? 'powershell.exe' : 'bash';
+
+if (shell === "powershell.exe"){
+    document.querySelector("title").append(" - Powershell");
+}
+else {
+    document.querySelector("title").append(" - Bash");
+}
 
 const termwindow = $(".window");
 const termwindow_ = document.querySelector(".window"); // This is here to get the clear command working
 
 const path = "["+ os.userInfo().username + "@" + os.hostname + "]";
 const prompt_ = ">";
-let command = "";
+
 // Get online status (for external links)
 let onlinestatus = navigator.onLine ? span("status-success", "Online" + "\n") : span("status-fail", "Offline" + "\n"); // gets whether app is online or not
 let status = span("title", "Emulator Status: ") + onlinestatus;
@@ -29,17 +43,42 @@ let status = span("title", "Emulator Status: ") + onlinestatus;
 let version = electron.app.getVersion();
 let appversion = span("title", "Termello - v" + version);
 
+let command = "";
 const commandHistory = [''];
 let historyIndex = 0;
 
-// Functions for making the terminal do its job
 function processcommand(){
     const args = command.split(" ");
     const typedCommand = commands.find(cmd => cmd.name === args[0]);
     args.shift();
-
-    if (typedCommand == null) termwindow.append(span("status-fail", "Command not found: " + command + "\n"));
-    else typedCommand.function(args);
+    
+    // Pass the command to the shell unless "clear" or "cd" is typed
+    // Then execute the custom functions
+    if (typedCommand == null){
+        const child = spawn(shell, [command]); // Spawn the shell and pass in the command
+        child.stdout.on("data",function(data){
+            termwindow.append(escapeHTML(data.toString()) + "\n");
+            termwindow_.scrollBy({
+                top: termwindow_.scrollHeight,
+                behavior: "smooth"
+            })
+        });
+        child.stderr.on("data",function(data){
+            termwindow.append(span("status-fail", escapeHTML(data.toString()) + "\n"));
+            termwindow_.scrollBy({
+                top: termwindow_.scrollHeight,
+                behavior: "smooth"
+            })
+        });
+        child.on("exit",function(){
+            displayprompt();
+        });
+        child.stdin.end();
+    }
+    else {
+        typedCommand.function(args);
+        displayprompt();
+    }
 
     // Add to command history and clean up
 	commandHistory.splice(1, 0, command);
@@ -47,6 +86,8 @@ function processcommand(){
     historyIndex = 0;
     commandHistory[0] = '';
 }
+
+// Functions for displaying to the terminal
 
 function appendcommand(str){
     termwindow.append(str);
@@ -93,7 +134,7 @@ document.addEventListener("keydown", (e) => {
             if(historyIndex > 0) historyIndex--;
         }
 
-        // Get command
+        // Get command and append it to the terminal
         const cmd = (historyIndex >= 0) ? commandHistory[historyIndex] : '';
         if (cmd != undefined) {
             clearcommand();
@@ -137,7 +178,9 @@ document.addEventListener("keypress", function(e){
             if (command.trim().length !== 0){
                 processcommand();
             }
-            displayprompt();
+            else {
+                displayprompt();
+            }
             termwindow_.scrollBy({
                 top: termwindow_.scrollHeight,
                 behavior: "smooth"
@@ -155,7 +198,7 @@ document.addEventListener("keypress", function(e){
 })
 // End typing
 
-// Displays "$ ~ in the console (default for now until file paths work)"
+// Displays prompt
 function displayprompt(){
     termwindow.append(span("path", path));
     termwindow.append(span("prompt", prompt_));
@@ -167,9 +210,10 @@ function displayprompt(){
 
 // Some startup stuffs
 function startterminal(){
-    termwindow.append(span("title", appversion + " : Electron - 11.1.1\n"));
+    termwindow.append(span("title", appversion + " : Electron-" + process.versions.electron + "\n"));
     termwindow.append(status);
-    termwindow.append(span("message", "For commands type: help (note: not all commands will be functional)\n"))
+    termwindow.append(span("title", "Running: " + shell + "\n"));
+    termwindow.append(span("message", "To report any bugs or suggest features, go to https://github.com/mellobacon/Termello/issues\n"));
     displayprompt();
 }
 
