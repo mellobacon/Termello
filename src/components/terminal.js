@@ -55,7 +55,13 @@ function processcommand(){
     // Pass the command to the shell unless "clear" or "cd" is typed
     // Then execute the custom functions
     if (typedCommand == null){
-        const child = spawn(shell, [command]); // Spawn the shell and pass in the command
+        let child;
+        if (shell === "powershell.exe"){
+            child = spawn(shell, [command]);
+        }
+        else {
+            child = spawn(command, {shell: true});
+        }
         child.stdout.on("data",function(data){
             termwindow.append(escapeHTML(data.toString()) + "\n");
             termwindow_.scrollBy({
