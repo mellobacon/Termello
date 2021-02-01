@@ -1,16 +1,25 @@
 const { app, BrowserWindow, Menu } = require("electron");
 const path = require('path');
+const glasstron = require("glasstron");
+
+if (require('electron-squirrel-startup')) { 
+    app.quit();
+}
 
 let mainWindow;
 let menu = new Menu();
 
 function createWindow() {
-    mainWindow = new BrowserWindow({
+    mainWindow = new glasstron.BrowserWindow({
         autoHideMenuBar: true,
         height: 500,
-        width: 900,
+        width: 945,
         frame: false,
         transparent: true,
+        blur: true,
+		blurType: "blurbehind",
+		blurGnomeSigma: 100,
+		blurCornerRadius: 20,
         icon: path.join(__dirname, 'Icons/Terminal.ico'),
         webPreferences: {
             nodeIntegration: true,
