@@ -8,36 +8,24 @@
         <link rel="stylesheet" href="../styles/preferences.css">
     </head>
     <body>
-
-        <div id="sidebar">
-            <p id="Appearance" class="sidebar-item">Appearance</p>
-        </div>
-        
         <div id="content">
-            <div id="appearance">
-                <form>
-                    <label class="label">Themes:</label>
-                    <select id="themes">
-                        <option class="theme-choice" value="default">default</option>
-                        <option class="theme-choice" value="grey">grey</option>
-                        <option class="theme-choice" value="light">light</option>
-                        <option class="theme-choice" value="winter">winter</option>
-                        <option class="theme-choice" value="matrix">matrix</option>
-                        <option class="theme-choice" value="red">red</option>
-                    </select>
-                </form>
-                <br>
-                <!-- Not implemented yet
-                <div id="font-size-control">
-                    <label style="color: rgb(255, 255, 255);">Font Size:</label>
-                    <div class="ctrl" id="ctrl-minus">&ndash;</div>
-                    <div id="counter">
-                        <div class="counter-input counter"></div>
-                        <div class="counter-num counter">0</div>
-                    </div>
-                    <div class="ctrl" id="ctrl-plus">+</div>
+            <div class="dropdown">
+                <input type="checkbox">
+                <a class="section-title" href="#" data-toggle="dropdown">Appearance</a>
+                <div class="dropdown-menu">
+                    <form>
+                        <label class="label">Themes:</label>
+                        <select id="themes">
+                            <option class="theme-choice" value="default">default</option>
+                            <option class="theme-choice" value="grey">grey</option>
+                            <option class="theme-choice" value="light">light</option>
+                            <option class="theme-choice" value="winter">winter</option>
+                            <option class="theme-choice" value="matrix">matrix</option>
+                            <option class="theme-choice" value="red">red</option>
+                        </select>
+                    </form>
+                    <br>
                 </div>
-                -->
             </div>
         </div>
         <script src="../components/theme-switcher.js"></script>
