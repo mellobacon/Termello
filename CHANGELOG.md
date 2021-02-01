@@ -1,5 +1,12 @@
 <h1 align="center">CHANGELOG</h1>
 
+## [0.3]()
+- New Features
+  - Added shell integration. A shell is now chosen based on your OS (Powershell for Windows, Bash for Linux)
+  - Added hostname to prompt
+  - Added blur effect to window
+- Removed custom shell (being redone)
+
 ## [0.2](https://github.com/mellobacon/Termello/releases/tag/0.2)
 ***Change to versioning. Now versioning with numbers only hence skipping beta naming***
 - New Features
