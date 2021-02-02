@@ -1,6 +1,6 @@
 <h1 align="center">CHANGELOG</h1>
 
-## [0.3]()
+## [0.3](https://github.com/mellobacon/Termello/releases/tag/v0.3)
 - New Features
   - Added shell integration. A shell is now chosen based on your OS (Powershell for Windows, Bash for Linux)
   - Added hostname to prompt
