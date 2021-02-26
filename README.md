@@ -20,6 +20,10 @@
 
 <br/>
 
+<h2>Know Issues</h2>
+
+- User input does not get processed correctly and in result will not run your interactive programs. Everything else should run as normal (PR requested, see [#20](https://github.com/mellobacon/Termello/issues/20))
+
 <div>
 <h2>Getting help</h2>
 <p>You can get help by creating an <a href="https://github.com/mellobacon/Termello/issues/new/choose">issue</a> and asking your question.</p>
