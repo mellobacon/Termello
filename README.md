@@ -20,7 +20,7 @@
 
 <br/>
 
-<h2>Know Issues</h2>
+<h2>Known Issues</h2>
 
 - User input does not get processed correctly and in result will not run your interactive programs. Everything else should run as normal (PR requested, see [#20](https://github.com/mellobacon/Termello/issues/20))
 
